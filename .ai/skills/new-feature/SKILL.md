@@ -1,6 +1,6 @@
 ---
 name: New Feature
-description: Review a Github issue, solve issue, and submit a PR fix. Reach for this skill when you need to work on a GitHub issue.
+description: Develop new features for the application. Reach for this skill when you need to develop a new feature.
 ---
 
 # New Feature Workflow
