@@ -6,6 +6,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -38,7 +39,8 @@ class AppServiceProvider extends ServiceProvider
             app()->isProduction(),
         );
 
-        Password::defaults(fn (): ?Password => app()->isProduction()
+        Password::defaults(
+            fn(): ?Password => app()->isProduction()
             ? Password::min(12)
                 ->mixedCase()
                 ->letters()
@@ -47,9 +49,13 @@ class AppServiceProvider extends ServiceProvider
                 ->uncompromised()
             : null
         );
-        
+
         Model::unguard();
 
-        Model::shouldBeStrict(! app()->isProduction());
+        Model::shouldBeStrict(!app()->isProduction());
+
+        if (app()->runningUnitTests()) {
+            Vite::useBuildDirectory('build');
+        }
     }
 }
