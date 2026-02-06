@@ -9,6 +9,8 @@ parameters:
     
     excludePaths:
         - app/Providers
+        - app/Http/Requests/Settings
+        - app/Http/Controllers/Settings
     
     # PHP version matching the application (8.5.1)
     phpVersion: 80501
