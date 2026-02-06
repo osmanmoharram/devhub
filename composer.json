@@ -63,6 +63,7 @@
         ],
         "format": [
             "pint --dirty",
+            "./vendor/bin/phpstan analyse --memory-limit 512M",
             "./vendor/bin/rector process"
         ],
         "lint": [

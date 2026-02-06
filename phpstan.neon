@@ -34,12 +34,6 @@ parameters:
         jobSize: 20
         minimumNumberOfJobsPerProcess: 2
     
-    # Temporary directory for PHPStan
-    tmpDir: storage/phpstan
-    
-    # Result cache for faster subsequent runs
-    resultCachePath: storage/phpstan/result-cache.php
-    
     # Universal object crates (classes that can have dynamic properties)
     universalObjectCratesClasses:
         - stdClass
