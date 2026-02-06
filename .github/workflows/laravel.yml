@@ -30,10 +30,8 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
-    - name: Fake Vite manifest
-      run: |
-        mkdir -p public/build
-        echo '{}' > public/build/manifest.json
+    - name: Build assets
+      run: npm run build
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
         DB_CONNECTION: sqlite
