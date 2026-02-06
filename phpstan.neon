@@ -1,0 +1,86 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+
+parameters:
+    level: 8
+    paths:
+        - app
+    
+    excludePaths:
+        - app/Providers
+    
+    # PHP version matching the application (8.5.1)
+    phpVersion: 80501
+    
+    # Treat PHPDocs as certain for better type checking
+    treatPhpDocTypesAsCertain: true
+    
+    # Check uninitialized properties
+    checkUninitializedProperties: true
+    
+    # Report missing callable signatures
+    checkMissingCallableSignature: true
+    
+    # Check function name case
+    checkFunctionNameCase: true
+    
+    # Check internal class case sensitivity
+    checkInternalClassCaseSensitivity: true
+    
+    # Parallel processing for better performance
+    parallel:
+        maximumNumberOfProcesses: 32
+        jobSize: 20
+        minimumNumberOfJobsPerProcess: 2
+    
+    # Temporary directory for PHPStan
+    tmpDir: storage/phpstan
+    
+    # Result cache for faster subsequent runs
+    resultCachePath: storage/phpstan/result-cache.php
+    
+    # Universal object crates (classes that can have dynamic properties)
+    universalObjectCratesClasses:
+        - stdClass
+        - Illuminate\Database\Eloquent\Model
+        - Illuminate\Http\Request
+    
+    # Dynamic constants that can have different runtime values
+    dynamicConstantNames:
+        - LARAVEL_START
+        - APP_ENV
+        - APP_DEBUG
+    
+    # Type aliases for better type documentation
+    typeAliases:
+        UserId: 'int'
+        ModelId: 'int'
+        Timestamp: 'string'
+        JsonArray: 'array<string, mixed>'
+        Uuid: 'string'
+    
+    # Ignore errors patterns for Laravel magic methods and common false positives
+    ignoreErrors:
+        # Laravel magic methods and dynamic properties
+        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Model<.*>::[a-zA-Z0-9_]+\(\)#'
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model<.*>::\$[a-zA-Z0-9_]+#'
+        - '#Call to an undefined method Illuminate\\Http\\Request::[a-zA-Z0-9_]+\(\)#'
+        - '#Access to an undefined property Illuminate\\Http\\Request::\$[a-zA-Z0-9_]+#'
+        
+        # Inertia.js related patterns
+        - '#Call to an undefined method Inertia\\Response::[a-zA-Z0-9_]+\(\)#'
+        
+        # Laravel Facade patterns
+        - '#Call to an undefined static method [a-zA-Z0-9_\\\\]+::[a-zA-Z0-9_]+\(\)#'
+        
+        # Test related patterns
+        - '#Access to an undefined property Tests\\.*::\$[a-zA-Z0-9_]+#'
+        - '#Call to an undefined method Tests\\.*::[a-zA-Z0-9_]+\(\)#'
+        
+        # Migration patterns
+        - '#Call to an undefined method Illuminate\\Database\\Schema\\Blueprint::[a-zA-Z0-9_]+\(\)#'
+    
+    # Report unmatched ignored errors (set to false for cleaner output)
+    reportUnmatchedIgnoredErrors: false
+  

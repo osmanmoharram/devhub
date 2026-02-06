@@ -18,14 +18,18 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "larastan/larastan": "^3.0",
         "laravel/boost": "^2.1",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.24",
         "laravel/sail": "^1.41",
         "mockery/mockery": "^1.6",
+        "nesbot/carbon": "^3.11",
         "nunomaduro/collision": "^8.6",
         "pestphp/pest": "^4.3",
-        "pestphp/pest-plugin-laravel": "^4.0"
+        "pestphp/pest-plugin-laravel": "^4.0",
+        "phpstan/phpstan": "^2.1",
+        "rector/rector": "^2.3"
     },
     "autoload": {
         "psr-4": {
@@ -59,7 +63,6 @@
         ],
         "format": [
             "pint --dirty",
-            "./vendor/bin/phpstan analyse --level 10",
             "./vendor/bin/rector process"
         ],
         "lint": [

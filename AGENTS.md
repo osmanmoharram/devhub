@@ -1,13 +1,25 @@
 <laravel-boost-guidelines>
 === .ai/app rules ===
 
-# App Guidelines
+# Application Guidelines
 
 These are application-wide guidelines.
 
 ## Eloquent Models
 
 - Never use `$fillable` or `$guarded`, we use `Model::unguard()` globally.
+
+## Writing Code 
+
+- Follow Laravel best practices and conventions.
+- Use latest code standards and practices.
+- **Type safety**: Use strict typing and avoid `mixed` types when possible.
+- **Performance**: Optimize queries and avoid N+1 problems.
+- **Security**: Follow security best practices and avoid common vulnerabilities.
+- **Code quality**: Write clean, readable, and maintainable code. 
+- **Documentation**: Document complex logic and business rules.
+
+Note: the terms "task" and "feature" are used interchangeably in this project.
 
 === foundation rules ===
 
@@ -25,11 +37,13 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - laravel/framework (LARAVEL) - v12
 - laravel/prompts (PROMPTS) - v0
 - laravel/wayfinder (WAYFINDER) - v0
+- larastan/larastan (LARASTAN) - v3
 - laravel/mcp (MCP) - v0
 - laravel/pint (PINT) - v1
 - laravel/sail (SAIL) - v1
 - pestphp/pest (PEST) - v4
 - phpunit/phpunit (PHPUNIT) - v12
+- rector/rector (RECTOR) - v2
 - @inertiajs/react (INERTIA) - v2
 - react (REACT) - v19
 - tailwindcss (TAILWINDCSS) - v4
@@ -45,6 +59,8 @@ This project has domain-specific skills available. You MUST activate the relevan
 - `pest-testing` — Tests applications using the Pest 4 PHP framework. Activates when writing tests, creating unit or feature tests, adding assertions, testing Livewire components, browser testing, debugging test failures, working with datasets or mocking; or when the user mentions test, spec, TDD, expects, assertion, coverage, or needs to verify functionality works.
 - `inertia-react-development` — Develops Inertia.js v2 React client-side applications. Activates when creating React pages, forms, or navigation; using &lt;Link&gt;, &lt;Form&gt;, useForm, or router; working with deferred props, prefetching, or polling; or when user mentions React with Inertia, React pages, React forms, or React navigation.
 - `tailwindcss-development` — Styles applications using Tailwind CSS v4 utilities. Activates when adding styles, restyling components, working with gradients, spacing, layout, flex, grid, responsive design, dark mode, colors, typography, or borders; or when the user mentions CSS, styling, classes, Tailwind, restyle, hero section, cards, buttons, or any visual/UI changes.
+- `Fix Issue` — Review a Github issue, solve issue, and submit a PR fix. Reach for this skill when you need to work on a GitHub issue.
+- `New Feature` — Develop new features for the application. Reach for this skill when you need to develop a new feature.
 
 ## Conventions
 
