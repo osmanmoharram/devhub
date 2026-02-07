@@ -1,0 +1,38 @@
+name: Static Analysis
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  static-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v6
+
+    # Set up PHP (adjust version as needed)
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, xml, ctype, json, tokenizer
+        coverage: none
+
+    # Install Composer dependencies
+    - name: Install Composer dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    # Run PHPStan/Larastan
+    - name: Run PHPStan (Laravel)
+      run: ./vendor/bin/phpstan analyse --memory-limit=1G
+
+    # Run PHP_CodeSniffer
+    - name: Run PHP_CodeSniffer
+      run: ./vendor/bin/phpcs --standard=PSR12 app/
+
+    # Optional: Run Psalm
+    # - name: Run Psalm
+    #   run: ./vendor/bin/psalm
