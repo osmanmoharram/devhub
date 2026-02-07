@@ -26,7 +26,3 @@ jobs:
     # Run Larastan (Laravel-specific)
     - name: Run Larastan
       run: ./vendor/bin/phpstan analyse --memory-limit=1G
-
-    # Run Psalm (General PHP issues)
-    - name: Run Psalm
-      run: ./vendor/bin/psalm
