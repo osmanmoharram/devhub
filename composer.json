@@ -29,7 +29,8 @@
         "pestphp/pest": "^4.3",
         "pestphp/pest-plugin-laravel": "^4.0",
         "phpstan/phpstan": "^2.1",
-        "rector/rector": "^2.3"
+        "rector/rector": "^2.3",
+        "vimeo/psalm": "^6.15"
     },
     "autoload": {
         "psr-4": {
@@ -61,16 +62,17 @@
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"php artisan inertia:start-ssr\" --names=server,queue,logs,ssr --kill-others"
         ],
-        "format": [
-            "pint --dirty",
+        "finalize": [
+            "./vendor/bin/pint --dirty",
             "./vendor/bin/phpstan analyse --memory-limit 1G",
-            "./vendor/bin/rector process"
+            "./vendor/bin/rector process",
+            "./vendor/bin/psalm --taint-analysis"
         ],
         "lint": [
-            "pint --parallel"
+            "./vendor/bin/pint --parallel"
         ],
         "test:lint": [
-            "pint --parallel --test"
+            "./vendor/bin/pint --parallel --test"
         ],
         "test": [
             "@php artisan config:clear --ansi",
