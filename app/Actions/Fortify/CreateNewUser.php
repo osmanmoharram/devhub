@@ -16,7 +16,10 @@ class CreateNewUser implements CreatesNewUsers
      * Validate and create a newly registered user.
      *
      * @param  array<string, string>  $input
+     * 
+     * @throws \Illuminate\Validation\ValidationException
      */
+    #[\Override]
     public function create(array $input): User
     {
         Validator::make($input, [
