@@ -29,13 +29,7 @@
         "pestphp/pest": "^4.3",
         "pestphp/pest-plugin-laravel": "^4.0",
         "phpstan/phpstan": "^2.1",
-        "psalm/plugin-laravel": "^3.0",
-        "psalm/plugin-mockery": "^1.2",
-        "psalm/plugin-phpunit": "^0.19.5",
-        "psalm/plugin-symfony": "^5.2",
-        "rector/rector": "^2.3",
-        "vimeo/psalm": "^6.15",
-        "weirdan/doctrine-psalm-plugin": "^2.10"
+        "rector/rector": "^2.3"
     },
     "autoload": {
         "psr-4": {
