@@ -16,6 +16,8 @@ class ProfileController extends Controller
 {
     /**
      * Show the user's profile settings page.
+     * 
+     * @throws \RuntimeException
      */
     public function edit(Request $request): Response
     {
@@ -27,6 +29,8 @@ class ProfileController extends Controller
 
     /**
      * Update the user's profile information.
+     * 
+     * @throws \Illuminate\Database\Eloquent\MassAssignmentException
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
@@ -43,6 +47,9 @@ class ProfileController extends Controller
 
     /**
      * Delete the user's profile.
+     * 
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public function destroy(ProfileDeleteRequest $request): RedirectResponse
     {
