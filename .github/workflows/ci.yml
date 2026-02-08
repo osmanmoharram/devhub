@@ -35,6 +35,16 @@ jobs:
     needs: build-application
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'  # Adjust to your Laravel version
+          extensions: mbstring, xml, ctype, json, tokenizer
+          tools: composer
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-suggest
       - name: Run Laravel Pint (Code Style Check)
         run: ./vendor/bin/pint --test
       - name: Run Rector (Code Refactoring Check)
@@ -44,13 +54,33 @@ jobs:
     needs: build-application
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'  # Adjust to your Laravel version
+          extensions: mbstring, xml, ctype, json, tokenizer
+          tools: composer
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-suggest
       - name: Run Larastan
         run: ./vendor/bin/phpstan analyse --memory-limit=1G
 
   check-security:
     needs: build-application
     runs-on: ubuntu-latest
-    steps:        
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'  # Adjust to your Laravel version
+          extensions: mbstring, xml, ctype, json, tokenizer
+          tools: composer
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-suggest
       - name: Psalm Security Scan
         uses: psalm/psalm-github-security-scan@f3e6fd9432bc3e44aec078572677ce9d2ef9c287
 
@@ -58,6 +88,16 @@ jobs:
     needs: build-application
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'  # Adjust to your Laravel version
+          extensions: mbstring, xml, ctype, json, tokenizer
+          tools: composer
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-suggest
       - name: Build assets
         run: npm install && npm run build
       - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
