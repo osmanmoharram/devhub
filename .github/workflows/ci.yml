@@ -82,7 +82,7 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-suggest
       - name: Psalm Security Scan
-        uses: psalm/psalm-github-security-scan@f3e6fd9432bc3e44aec078572677ce9d2ef9c287
+        run: ./vendor/bin/psalm --taint-analysis
 
   run-tests:
     needs: build-application
