@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-test('can create a category', function () {
+test('can create a category', function (): void {
     $category = Category::factory()->create([
         'name' => 'Web Development',
         'slug' => 'web-development',
@@ -18,14 +18,14 @@ test('can create a category', function () {
     expect($category->is_active)->toBeTrue();
 });
 
-test('category slug is unique', function () {
+test('category slug is unique', function (): void {
     Category::factory()->create(['slug' => 'web-development']);
 
     expect(fn () => Category::factory()->create(['slug' => 'web-development']))
         ->toThrow('Integrity constraint violation');
 });
 
-test('active scope returns only active categories', function () {
+test('active scope returns only active categories', function (): void {
     $activeCategory = Category::factory()->create(['is_active' => true]);
     $inactiveCategory = Category::factory()->create(['is_active' => false]);
 
@@ -35,7 +35,7 @@ test('active scope returns only active categories', function () {
     expect($activeCategories->first()->id)->toBe($activeCategory->id);
 });
 
-test('ordered scope sorts by sort_order then name', function () {
+test('ordered scope sorts by sort_order then name', function (): void {
     $category3 = Category::factory()->create(['name' => 'C', 'sort_order' => 3]);
     $category1 = Category::factory()->create(['name' => 'A', 'sort_order' => 1]);
     $category2 = Category::factory()->create(['name' => 'B', 'sort_order' => 2]);
@@ -49,7 +49,7 @@ test('ordered scope sorts by sort_order then name', function () {
     ]);
 });
 
-test('category resource transforms correctly', function () {
+test('category resource transforms correctly', function (): void {
     $category = Category::factory()->create();
 
     $resource = new \App\Http\Resources\CategoryResource($category);
