@@ -34,7 +34,7 @@ git checkout -b fix/issue-<numbe r>
 - Write tests that match the style of similar tests
 - Ensure existing tests still pass
 - Run `php artisan test` before considering the work complete
-- Run `/format` command to ensure code style consistency
+- Run `/finalize` command to ensure code style consistency
 
 ## Committing
 

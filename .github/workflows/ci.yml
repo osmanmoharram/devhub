@@ -7,32 +7,91 @@ on:
     branches: [ "main" ]
 
 jobs:  
+<<<<<<< develop/feature-category-model
   check-formatting:
     runs-on: ubuntu-latest
+=======
+  code-style-check:
+    runs-on: ubuntu-latest
+    name: Code Style Check
+>>>>>>> main
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
+<<<<<<< develop/feature-category-model
           php-version: '8.4'  # Adjust to your Laravel version
           extensions: mbstring, xml, ctype, json, tokenizer
           tools: composer
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-suggest
+=======
+          php-version: '8.4'
+          extensions: mbstring, xml, ctype, json, tokenizer, pdo, sqlite3, bcmath, intl, gd, zip
+          tools: composer:v2
+          coverage: none
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-suggest --no-progress
+>>>>>>> main
       - name: Run Laravel Pint (Code Style Check)
         run: ./vendor/bin/pint --test
       - name: Run Rector (Code Refactoring Check)
         run: ./vendor/bin/rector process --dry-run
+<<<<<<< develop/feature-category-model
 
   run-static-analysis:
     runs-on: ubuntu-latest
+=======
+
+  static-analysis-check:
+    runs-on: ubuntu-latest
+    name: Static Analysis Check
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
+          php-version: '8.4'
+          extensions: mbstring, xml, ctype, json, tokenizer, pdo, sqlite3, bcmath, intl, gd, zip
+          tools: composer:v2
+          coverage: none
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-suggest --no-progress
+      - name: Run PHPStan Static Analysis
+        run: ./vendor/bin/phpstan analyse --memory-limit=1G
+
+  security-vulnerability-check:
+    runs-on: ubuntu-latest
+    name: Security Vulnerability Check
+>>>>>>> main
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+<<<<<<< develop/feature-category-model
           php-version: '8.4'  # Adjust to your Laravel version
           extensions: mbstring, xml, ctype, json, tokenizer
           tools: composer
@@ -59,12 +118,36 @@ jobs:
 
   run-tests:
     runs-on: ubuntu-latest
+=======
+          php-version: '8.4'
+          extensions: mbstring, xml, ctype, json, tokenizer, pdo, sqlite3, bcmath, intl, gd, zip
+          tools: composer:v2
+          coverage: none
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-suggest --no-progress
+      - name: Run Psalm Security Analysis
+        run: ./vendor/bin/psalm --taint-analysis
+
+  tests-success-check:
+    runs-on: ubuntu-latest
+    name: Tests Success Check
+>>>>>>> main
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
+<<<<<<< develop/feature-category-model
           php-version: '8.4'  # Adjust to your Laravel version
           extensions: mbstring, xml, ctype, json, tokenizer
           tools: composer
@@ -83,7 +166,54 @@ jobs:
       - name: Build assets
         run: npm install && npm run build
       - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
+=======
+          php-version: '8.4'
+          extensions: mbstring, xml, ctype, json, tokenizer, pdo, sqlite3, bcmath, intl, gd, zip
+          tools: composer:v2
+          coverage: none
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-suggest --no-progress
+      - name: Generate application key
+        run: php artisan key:generate
+      - name: Set up directory permissions
+        run: chmod -R 775 storage bootstrap/cache
+      - name: Create SQLite database
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
+      - name: Install npm dependencies
+        run: npm ci
+      - name: Build frontend assets
+        run: npm run build
+      - name: Run database migrations
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan migrate --force
+      - name: Execute tests
+>>>>>>> main
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
         run: php artisan test
+<<<<<<< develop/feature-category-model
+=======
+
+>>>>>>> main
