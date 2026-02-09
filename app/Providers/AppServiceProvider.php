@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
         );
 
         Password::defaults(
-            fn(): ?Password => app()->isProduction()
+            fn (): ?Password => app()->isProduction()
             ? Password::min(12)
                 ->mixedCase()
                 ->letters()
@@ -53,7 +53,7 @@ class AppServiceProvider extends ServiceProvider
 
         Model::unguard();
 
-        Model::shouldBeStrict(!app()->isProduction());
+        Model::shouldBeStrict(! app()->isProduction());
 
         if (app()->runningUnitTests()) {
             Vite::useBuildDirectory('build');
