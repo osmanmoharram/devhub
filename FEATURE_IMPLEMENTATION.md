@@ -1,139 +1,230 @@
-# Feature Implementation: Category Detail Page
+# Feature Implementation: Mobile Application Architecture
 
 ## Feature Overview
 
-Implement Category Detail Page as Feature #6 from MVP roadmap. This feature enables users to view all discussions within a specific category, serving as the main content discovery interface for the DevHub forum.
+Implement Mobile Application Architecture as Feature #51 from MVP roadmap. This feature prepares the DevHub platform for mobile application support by implementing API endpoints, mobile-first design, and progressive web app capabilities.
 
 ## Requirements from Roadmap
 
-- **Category Detail Page** - Show discussions within a category
-- Must follow existing code patterns and conventions
-- Use existing Category and Discussion models
-- Support Arabic/English language context
-- Be responsive and accessible
-- Include proper navigation structure
-- Support pagination for discussions
+- **API Architecture** - RESTful API endpoints for mobile app consumption
+- **Mobile-First Design** - All components optimized for mobile screens
+- **Touch-Friendly Interfaces** - Large tap targets for mobile interaction
+- **Progressive Web App** - PWA features for native app-like experience
+- **Offline Support** - Cache discussions for offline viewing
+- **Push Notifications** - Real-time updates for new discussions/replies
 
 ## Implementation Plan
 
-### 1. Backend Implementation
+### 1. API Architecture Preparation
 
-#### Controller Update
+#### API Endpoints Structure
 
-**File**: `app/Http/Controllers/CategoryController.php`
+**Files**:
 
-- Add `show()` method to display category details with discussions
-- Accept `Category $category` parameter with route model binding
-- Include discussions with pagination (10 per page)
-- Include discussion author information
-- Order discussions by latest activity (created_at or updated_at)
-- Return as Inertia response
+- `routes/api.php` - Dedicated API routes for mobile consumption
+- `app/Http/Controllers/Api/` - API-specific controllers
+- `app/Http/Resources/` - API resource transformers
 
-#### Route Addition
+**Endpoints to Prepare**:
 
-**File**: `routes/web.php`
+- `GET /api/categories` - List all active categories
+- `GET /api/categories/{id}` - Get category details with discussions
+- `GET /api/discussions` - List discussions with pagination
+- `GET /api/discussions/{id}` - Get single discussion with replies
+- `POST /api/discussions` - Create new discussion (for mobile app)
+- `POST /api/replies` - Create new reply (for mobile app)
 
-- Add `GET /categories/{category:slug}` route
-- Point to CategoryController@show
-- Use slug in route for clean URLs
-- Use Wayfinder for type-safe route generation
+#### API Authentication
 
-#### Model Relationships
+**Implementation**:
 
-- Ensure Category model has proper `discussions()` relationship
-- Verify Discussion model has proper `user()` relationship
-- May need to add eager loading optimization
+- Laravel Sanctum for API token authentication
+- API rate limiting to prevent abuse
+- Proper API response formatting (JSON API)
 
-### 2. Frontend Implementation
+#### API Resources
 
-#### React Component
+**Files**:
 
-**File**: `resources/js/pages/categories/[slug].tsx`
+- `app/Http/Resources/CategoryResource.php`
+- `app/Http/Resources/DiscussionResource.php`
+- `app/Http/Resources/ReplyResource.php`
 
-- Display category information (name, description)
-- Show discussions list with pagination
-- Each discussion shows: title, author name, created date, reply count
-- Include responsive design with Tailwind CSS
-- Support both RTL/LTR layout modes
-- Handle empty state when no discussions exist
+### 2. Mobile-First Design Updates
 
-#### Navigation Updates
+#### Component Optimization
 
-- Make category cards clickable in listing page
-- Update CategoryController import to include `show` method
-- Add breadcrumb navigation: Home → Categories → [Category Name]
-- Link back to categories listing
+**Files to Update**:
 
-### 3. Data Flow
+- `resources/js/layouts/app-layout.tsx` - Mobile-optimized navigation
+- `resources/js/components/` - New mobile-friendly components
+- All existing page components - Mobile responsiveness improvements
 
-1. User clicks category from categories listing page
-2. Route resolves to CategoryController@show with slug
-3. Controller fetches category with paginated discussions
-4. Data rendered as Inertia page with category and discussions
-5. Discussions displayed with pagination controls
-6. Users can navigate to individual discussions (future feature)
+**Mobile Considerations**:
 
-### 4. Testing Strategy
+- Larger tap targets (minimum 44px)
+- Mobile-optimized navigation patterns
+- Touch-friendly form inputs
+- Swipe gestures where appropriate
+- Mobile-optimized typography and spacing
 
-**File**: `tests/Feature/CategoryDetailPageTest.php`
+#### Touch-Friendly Components
 
-- Test category detail page loads correctly
-- Test discussions are displayed with proper pagination
-- Test 404 for non-existent category
-- Test discussions are ordered by latest activity
-- Test responsive behavior
-- Test navigation breadcrumbs work correctly
-- Test empty state when no discussions exist
+**New Components**:
+
+- `resources/js/components/MobileNavigation.tsx` - Mobile-optimized header
+- `resources/js/components/TouchButton.tsx` - Large tap targets
+- `resources/js/components/MobileCard.tsx` - Mobile-optimized content cards
+
+### 3. Progressive Web App Features
+
+#### PWA Implementation
+
+**Files**:
+
+- `public/manifest.json` - PWA manifest
+- `public/sw.js` - Service worker for offline support
+- `resources/js/pwa/` - PWA-specific JavaScript
+
+**Features**:
+
+- App manifest for installation on mobile devices
+- Service worker for caching discussions offline
+- Push notification API integration
+- App splash screen and icons
+
+### 4. Offline Support Implementation
+
+#### Data Caching Strategy
+
+**Files**:
+
+- `app/Http/Controllers/Api/CachedDiscussionController.php`
+- `app/Services/OfflineCacheService.php`
+
+**Features**:
+
+- Cache discussions for offline viewing
+- Sync when connectivity restored
+- Conflict resolution for offline/online data
+- Progressive loading of cached content
+
+### 5. Push Notification System
+
+#### Real-Time Updates
+
+**Files**:
+
+- `app/Events/DiscussionReplied.php`
+- `app/Listeners/SendPushNotification.php`
+- `app/Models/PushSubscription.php`
+
+**Features**:
+
+- WebSocket integration for live updates
+- Push notification subscription management
+- Notification preferences and settings
+- Badge update functionality
+
+## Data Flow
+
+1. **Mobile App API Consumption**:
+    - Mobile app authenticates via Sanctum tokens
+    - Consumes RESTful API endpoints
+    - Receives structured JSON responses with proper HTTP status codes
+
+2. **Offline Experience**:
+    - Service worker caches API responses
+    - Mobile app can view cached discussions offline
+    - Background sync when connectivity restored
+
+3. **Real-Time Updates**:
+    - WebSocket connections for live updates
+    - Push notifications for new discussions/replies
+    - Badge count updates on app icons
+
+## Testing Strategy
+
+**Files**: `tests/Feature/Api/` and `tests/Unit/MobileApp/`
+
+- API endpoint testing for all mobile routes
+- Authentication testing for API tokens
+- Offline functionality testing
+- Push notification testing
+- Mobile UI component testing
+- PWA manifest and service worker testing
 
 ## Acceptance Criteria
 
-- ✅ Page loads and displays category information
-- ✅ Discussions are displayed with pagination (10 per page)
-- ✅ Discussions ordered by latest activity (newest first)
-- ✅ Each discussion shows title, author, date, reply count
-- ✅ Page is responsive on mobile/desktop
-- ✅ Navigation breadcrumbs work correctly
-- ✅ Arabic/English text supported
-- ✅ Empty state handled when no discussions exist
-- ✅ 404 page for non-existent categories
-- ✅ All tests pass
-- ✅ Code follows project conventions
-- ✅ Code formatted with Pint
+### API Architecture
+
+- ✅ RESTful API endpoints accessible at `/api/*`
+- ✅ Sanctum token authentication working
+- ✅ Proper JSON API responses with correct status codes
+- ✅ API rate limiting implemented
+- ✅ API resources transform data correctly
+
+### Mobile Design
+
+- ✅ All components optimized for mobile screens
+- ✅ Touch-friendly navigation with large tap targets
+- ✅ Mobile-optimized forms with proper input types
+- ✅ Responsive design works on all mobile screen sizes
+
+### PWA Features
+
+- ✅ Progressive Web App manifest configured
+- ✅ Service worker for offline caching
+- ✅ App installation on mobile devices
+- ✅ Splash screen and app icons
+
+### Offline Support
+
+- ✅ Discussions cached for offline viewing
+- ✅ Background sync when connectivity restored
+- ✅ Conflict resolution for cached data
+
+### Push Notifications
+
+- ✅ Real-time WebSocket connections
+- ✅ Push notification subscriptions
+- ✅ Notification preferences management
+- ✅ Badge count updates
 
 ## Technical Considerations
 
-- Use Laravel route model binding with slug parameter
-- Leverage Inertia.js for SPA navigation
-- Follow established Tailwind CSS patterns
-- Use proper responsive design principles
-- Consider pagination for performance
-- Support Middle East context in styling and text
-- Ensure proper eager loading to avoid N+1 queries
+- **Security**: Sanctum tokens with proper expiration and refresh
+- **Performance**: Efficient caching strategies for mobile
+- **UX**: Mobile-first interaction patterns
+- **Accessibility**: WCAG compliance for mobile interfaces
+- **Compatibility**: Support for iOS and Android PWA installation
 
 ## Dependencies
 
-- Uses existing Category and Discussion models
-- Inertia.js for client-side navigation
-- React for component rendering
-- Tailwind CSS for styling
-- Wayfinder for type-safe routes
-- Laravel pagination for discussions
+- **Laravel Sanctum**: API authentication
+- **Laravel WebSockets**: Real-time communication
+- **Service Workers**: PWA offline capabilities
+- **Push API**: Cross-platform notification support
 
 ## Timeline Estimate
 
-- Backend Controller update: 30 minutes
-- Route Configuration: 15 minutes
-- Frontend Component: 60 minutes
-- Navigation Updates: 20 minutes
-- Testing: 45 minutes
-- Code Review & Formatting: 20 minutes
-- **Total**: ~3 hours
+- API Architecture Setup: 4 hours
+- Mobile Design Updates: 3 hours
+- PWA Implementation: 3 hours
+- Offline Support: 2 hours
+- Push Notifications: 2 hours
+- Testing: 2 hours
+- Code Review & Documentation: 1 hour
+- **Total**: ~17 hours
 
-## Package Check
+## Implementation Order
 
-Based on Laravel ecosystem and current requirements:
-
-- No additional packages needed
-- Uses existing Laravel features, Inertia, React, and Tailwind
-- Laravel pagination handles all required functionality
-- All dependencies already available in the project
+1. Set up API routes and controllers
+2. Implement Sanctum authentication for API
+3. Create API resource transformers
+4. Update existing components for mobile optimization
+5. Implement PWA features (manifest, service worker)
+6. Add offline caching support
+7. Implement real-time push notifications
+8. Comprehensive testing across all features
+9. Documentation and deployment preparation
