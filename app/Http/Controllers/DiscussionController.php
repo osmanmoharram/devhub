@@ -34,10 +34,11 @@ class DiscussionController extends Controller
      */
     public function store(StoreDiscussionRequest $request): RedirectResponse
     {
+        /** @var array{title: string, content: string, category_id: int} $validated */
         $validated = $request->validated();
 
-        // Generate unique slug from title
-        $title = (string) $validated['title'];
+// Generate unique slug from title
+        $title = $validated['title'];
         $slug = Str::slug($title);
         $originalSlug = $slug;
         $counter = 1;
