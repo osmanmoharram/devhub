@@ -27,8 +27,6 @@ jobs:
 
       - name: Run OpenCode
         uses: anomalyco/opencode/github@latest
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets . ANTHROPIC_API_KEY }}
         with:
           model: opencode/big-pickle
           # share: true
