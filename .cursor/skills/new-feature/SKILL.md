@@ -24,6 +24,8 @@ git checkout -b develop/feature-<feature title>
 
 ## Implementation Standards
 
+- Move to `main` branch and pull the latest changes.
+- Create a new branch using the naming convention `develop/feature-<feature title>`.
 - Generate a file called `FEATURE_IMPLEMENTATION.md` in the root of the project that outlines the implementation plan.
 - Make sure to follow the application guidelines.
 - When developing the feature, first check for the existence of a package that allows you to implement the feature with less code, if one exists, tell me about it and wait for my response, if none exists, implement the feature from scratch.

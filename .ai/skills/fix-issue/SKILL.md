@@ -25,11 +25,13 @@ Read the title, description, and labels to identify:
 Create a branch using the naming convention `fix/issue-<number>`.
 
 ```bash
-git checkout -b fix/issue-<numbe r>
+git checkout -b fix/issue-<number>
 ```
 
 ## Implementation Standards
 
+- Move to `main` branch and pull the latest changes.
+- Create a new branch using the naming convention `fix/issue-<issue number>`.
 - Follow existing code conventions
 - Write tests that match the style of similar tests
 - Ensure existing tests still pass
