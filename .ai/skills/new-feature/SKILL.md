@@ -32,7 +32,7 @@ git checkout -b develop/feature-<feature title>
 - Write tests that match the style of similar tests.
 - Ensure existing tests still pass.
 - Run `php artisan test` before considering the work complete.
-- Review code using `/review-code` skill.
+- Review code using `/code-review` skill.
 - Run `/finalize` command to ensure code style consistency.
 
 ## Committing
