@@ -16,4 +16,11 @@ Route::get('dashboard', function () {
 
 Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories.index');
 
+Route::get('/categories/{category:slug}', [App\Http\Controllers\CategoryController::class, 'show'])->name('categories.show');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/discussions/create', [App\Http\Controllers\DiscussionController::class, 'create'])->name('discussions.create');
+    Route::post('/discussions', [App\Http\Controllers\DiscussionController::class, 'store'])->name('discussions.store');
+});
+
 require __DIR__.'/settings.php';
