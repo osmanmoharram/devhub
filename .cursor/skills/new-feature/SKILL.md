@@ -22,18 +22,25 @@ Create a branch using the naming convention `develop/feature-<feature title>`.
 git checkout -b develop/feature-<feature title>
 ```
 
-## Implementation Standards
+## Before Implementing The Feature
 
-- Move to `main` branch and pull the latest changes.
-- Create a new branch using the naming convention `develop/feature-<feature title>`.
-- Generate a file called `FEATURE_IMPLEMENTATION.md` in the root of the project that outlines the implementation plan.
-- Make sure to follow the application guidelines.
-- When developing the feature, first check for the existence of a package that allows you to implement the feature with less code, if one exists, tell me about it and wait for my response, if none exists, implement the feature from scratch.
-- Write tests that match the style of similar tests.
-- Ensure existing tests still pass.
-- Run `php artisan test` before considering the work complete.
-- Review code using `/code-review` skill.
-- Run `/finalize` command to ensure code style consistency.
+These are the steps you must complete before you start working on the feature:
+
+1. Move to `main` branch and pull the latest changes.
+2. Create a new branch using the naming convention `develop/feature-<feature title>`.
+3. Generate a file called `FEATURE_IMPLEMENTATION.md` in the root of the project that outlines the implementation plan.
+4. Check for the existenance of a package that can help implement the feature with less code, if one exists, tell me about it and wait for my response, if none exists, implement the feature from scratch.
+5. Make sure to follow the application guidelines.
+
+## After Implementing The Feature
+
+These are the steps you must complete after you finshed working on the feature:
+
+1. Write tests that match the style of similar tests.
+2. Ensure existing tests still pass.
+3. Run `php artisan test` before considering the work complete.
+4. Run `/laravel-boost:laravel-code-simplifier`.
+5. Run `/finalize` command to ensure code style consistency.
 
 ## Committing
 
