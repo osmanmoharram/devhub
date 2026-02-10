@@ -26,6 +26,6 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets . ANTHROPIC_API_KEY }}
         with:
-          model: anthropic/claude-opus-4.6
+          model: opencode/big-pickle
           # share: true
           # github_token: xxxx
