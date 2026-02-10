@@ -37,7 +37,7 @@ class DiscussionController extends Controller
         /** @var array{title: string, content: string, category_id: int} $validated */
         $validated = $request->validated();
 
-// Generate unique slug from title
+        // Generate unique slug from title
         $title = $validated['title'];
         $slug = Str::slug($title);
         $originalSlug = $slug;
