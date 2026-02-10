@@ -18,7 +18,7 @@ Implement Create Discussion Form as Feature #7 from MVP roadmap. This feature en
 
 ### 1. Backend Implementation
 
-#### Controller
+#### Controller Update
 
 **File**: `app/Http/Controllers/DiscussionController.php`
 
