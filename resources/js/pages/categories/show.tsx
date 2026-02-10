@@ -2,6 +2,7 @@ import React from 'react';
 import { Head, Link } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import CategoryController from '@/actions/App/Http/Controllers/CategoryController';
+import DiscussionController from '@/actions/App/Http/Controllers/DiscussionController';
 import type { BreadcrumbItem } from '@/types';
 
 interface User {
@@ -81,15 +82,27 @@ export default function Show({
             <Head title={category.name} />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="rounded-xl border border-sidebar-border/70 bg-white p-8 dark:border-sidebar-border dark:bg-gray-800">
-                    <div className="mb-8">
-                        <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
-                            {category.name}
-                        </h1>
-                        {category.description && (
-                            <p className="text-gray-600 dark:text-gray-300">
-                                {category.description}
-                            </p>
-                        )}
+                    <div className="mb-8 flex items-center justify-between">
+                        <div>
+                            <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
+                                {category.name}
+                            </h1>
+                            {category.description && (
+                                <p className="text-gray-600 dark:text-gray-300">
+                                    {category.description}
+                                </p>
+                            )}
+                        </div>
+                        <Link
+                            href={
+                                DiscussionController.create({
+                                    category: category.id.toString(),
+                                }).url
+                            }
+                            className="focus:ring-opacity-50 rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                        >
+                            Create Discussion
+                        </Link>
                     </div>
 
                     {discussions.data.length === 0 ? (
@@ -97,9 +110,18 @@ export default function Show({
                             <p className="text-gray-600 dark:text-gray-300">
                                 No discussions in this category yet.
                             </p>
-                            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                                Be the first to start a discussion!
-                            </p>
+                            <div className="mt-4">
+                                <Link
+                                    href={
+                                        DiscussionController.create({
+                                            category: category.id.toString(),
+                                        }).url
+                                    }
+                                    className="focus:ring-opacity-50 rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                >
+                                    Start the First Discussion
+                                </Link>
+                            </div>
                         </div>
                     ) : (
                         <div className="space-y-4">

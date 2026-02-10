@@ -2,6 +2,7 @@ import React from 'react';
 import { Head, Link } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import CategoryController from '@/actions/App/Http/Controllers/CategoryController';
+import DiscussionController from '@/actions/App/Http/Controllers/DiscussionController';
 import type { BreadcrumbItem } from '@/types';
 
 interface Category {
@@ -48,9 +49,17 @@ export default function Index({ categories }: CategoriesPageProps) {
             ) : (
                 <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                     <div className="rounded-xl border border-sidebar-border/70 bg-white p-8 dark:border-sidebar-border dark:bg-gray-800">
-                        <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
-                            Categories
-                        </h1>
+                        <div className="mb-6 flex items-center justify-between">
+                            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                                Categories
+                            </h1>
+                            <Link
+                                href={DiscussionController.create().url}
+                                className="focus:ring-opacity-50 rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                            >
+                                Create Discussion
+                            </Link>
+                        </div>
 
                         <div className={gridClasses}>
                             {categories.map((category) => (
