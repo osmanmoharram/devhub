@@ -1,115 +1,123 @@
-# Feature Implementation: Profile Model
+# Feature Implementation: Category Listing Page
 
 ## Feature Overview
 
-Implement Profile Model as Feature #4 from MVP roadmap. This feature enables users to have extended profile information including bio, location, and avatar, supporting the community aspects of the DevHub forum.
+Implement Category Listing Page as Feature #5 from MVP roadmap. This feature enables users to browse all forum categories, serving as the main navigation hub for the DevHub forum.
 
 ## Requirements from Roadmap
 
-- **Profile Model** - Create Profile model with bio, location, avatar, user_id fields
+- **Category Listing Page** - Display all forum categories
 - Must follow existing code patterns and conventions
-- Include proper database relationships
-- Include comprehensive testing
-- Support Middle East regional context (location field)
+- Use existing Category model
+- Support Arabic/English language context
+- Be responsive and accessible
+- Include proper navigation structure
 
 ## Implementation Plan
 
-### 1. Database Schema
+### 1. Backend Implementation
 
-**Table**: `profiles`
+#### Controller
 
-- `id` (primary key, auto-increment)
-- `bio` (TEXT, nullable) - User biography/description
-- `location` (STRING, nullable) - User location (Middle East countries focus)
-- `avatar` (STRING, nullable) - Path to user avatar image
-- `user_id` (BIGINT, foreign key) - References users.id with cascade delete
-- `created_at`, `updated_at` (timestamps)
-- **Indexes**:
-    - `user_id` - Unique index for one-to-one relationship
-    - `location` - For location-based searches
+**File**: `app/Http/Controllers/CategoryController.php`
 
-### 2. Model Implementation
+- Index method to retrieve all active categories
+- Ordered by sort_order and name
+- Include discussions count for each category
+- Return as Inertia response
 
-**File**: `app/Models/Profile.php`
+#### Route
 
-- Extends Laravel Eloquent Model
-- Uses HasFactory trait
-- Proper PHPDoc properties for IDE support
-- **Relationships**:
-    - `user()` - BelongsTo relationship to User
-- **Casts**:
-    - Consider JSON casts for future profile fields
+**File**: `routes/web.php`
 
-### 3. Factory Implementation
+- GET `/categories` route
+- Point to CategoryController@index
+- Use Wayfinder for type-safe route generation
 
-**File**: `database/factories/ProfileFactory.php`
+#### Model Updates
 
-- Follows existing factory patterns
-- Generate realistic bio content using faker
-- Generate Middle East location names
-- Handle avatar path generation (placeholder initially)
-- Create related User models
+- Ensure Category model has proper relationships loaded
+- May need to add discussions_count caching
 
-### 4. Model Relationships Update
+### 2. Frontend Implementation
 
-**Files to update**:
+#### React Component
 
-- `app/Models/User.php` - Add `profile()` HasOne relationship
+**File**: `resources/js/pages/categories.tsx`
 
-### 5. Testing Strategy
+- Display categories in grid/list layout
+- Show category name, description, discussion count
+- Include navigation breadcrumbs
+- Use existing Tailwind patterns
+- Support both RTL/LTR layout modes
 
-**File**: `tests/Feature/ProfileTest.php`
+#### Navigation
 
-- Test Profile model creation
-- Test database constraints (user_id unique, nullable fields)
-- Test belongsTo relationship (User)
-- Test hasOne relationship (User.profile)
-- Test one-to-one relationship behavior
-- Follow existing test patterns and structure
+- Add Categories link to main navigation
+- Update homepage to link to categories
+- Support Arabic text labels
+
+### 3. Data Flow
+
+1. User visits `/categories`
+2. CategoryController fetches active categories with discussion counts
+3. Data rendered as Inertia page with categories
+4. Categories displayed in responsive grid
+
+### 4. Testing Strategy
+
+**File**: `tests/Feature/CategoryPageTest.php`
+
+- Test category listing page loads correctly
+- Test categories are ordered properly
+- Test discussions count is accurate
+- Test responsive behavior
+- Test navigation breadcrumbs
 
 ## Acceptance Criteria
 
-- ✅ Migration creates table with proper schema
-- ✅ Profile model can be created and retrieved
-- ✅ Profile belongs to User (one-to-one)
-- ✅ User has one Profile
-- ✅ Database constraints prevent duplicate user_id
-- ✅ Bio, location, avatar fields are nullable
+- ✅ Page loads and displays categories
+- ✅ Categories are ordered correctly (sort_order, then name)
+- ✅ Each category shows discussion count
+- ✅ Page is responsive on mobile/desktop
+- ✅ Navigation breadcrumbs work correctly
+- ✅ Arabic/English text supported
+- ✅ Empty state handled when no categories exist
 - ✅ All tests pass
 - ✅ Code follows project conventions
 - ✅ Code formatted with Pint
 
 ## Technical Considerations
 
-- Use Laravel 12 conventions (no `$fillable` due to `Model::unguard()`)
-- Follow established PHPDoc patterns from other models
-- Use proper foreign key constraints with cascade delete
-- Add unique constraint on user_id for one-to-one relationship
-- Include comprehensive test coverage
-- Consider avatar storage (placeholder for now, real storage later)
+- Use existing Category model and relationships
+- Leverage Inertia.js for SPA navigation
+- Follow established Tailwind CSS patterns
+- Use proper responsive design principles
+- Consider caching for performance (category counts)
+- Support Middle East context in styling and text
 
 ## Dependencies
 
-- No additional packages required for basic profile functionality
-- Uses existing Laravel features and patterns
-- Builds on existing User model
-- Future: May need image storage package for avatar uploads
+- Uses existing Category model
+- Inertia.js for client-side navigation
+- React for component rendering
+- Tailwind CSS for styling
+- Wayfinder for type-safe routes
 
 ## Timeline Estimate
 
-- Database Migration: 15 minutes
-- Model Implementation: 20 minutes
-- Factory Implementation: 10 minutes
-- Relationship Updates: 10 minutes
+- Backend Controller: 30 minutes
+- Route Configuration: 15 minutes
+- Frontend Component: 45 minutes
+- Navigation Updates: 20 minutes
 - Testing: 30 minutes
 - Code Review & Formatting: 20 minutes
-- **Total**: ~1.5 hours
+- **Total**: ~2.5 hours
 
 ## Package Check
 
 Based on Laravel ecosystem and current requirements:
 
-- No existing packages needed for basic profile functionality
-- Laravel Eloquent relationships handle all required functionality
-- For avatar uploads in future: Consider `spatie/laravel-medialibrary` or similar
-- For now, use simple string path for avatar field
+- No additional packages needed
+- Uses existing Laravel features, Inertia, React, and Tailwind
+- All dependencies already available in the project

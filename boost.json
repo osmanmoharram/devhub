@@ -14,7 +14,6 @@
         "inertia-react-development",
         "tailwindcss-development",
         "fix-issue",
-        "new-feature",
-        "code-review"
+        "new-feature"
     ]
 }

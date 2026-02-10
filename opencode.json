@@ -9,6 +9,14 @@
                 "artisan",
                 "boost:mcp"
             ]
+        },
+        "context7": {
+            "type": "remote",
+            "url": "https://mcp.context7.com/mcp",
+            "headers": {
+                "CONTEXT7_API_KEY": "ctx7sk-e4c781c9-8a24-488e-afe8-c164083b8e72"
+            },
+            "enabled": true
         }
     }
 }

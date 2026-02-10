@@ -28,16 +28,20 @@ Create a branch using the naming convention `fix/issue-<number>`.
 git checkout -b fix/issue-<number>
 ```
 
-## Implementation Standards
+## Before Implementing the Fix
 
-- Move to `main` branch and pull the latest changes.
-- Create a new branch using the naming convention `fix/issue-<issue number>`.
-- Follow existing code conventions
-- Write tests that match the style of similar tests
-- Ensure existing tests still pass
-- Run `php artisan test` before considering the work complete
-- Review code using `/code-review` skill.
-- Run `/finalize` command to ensure code style consistency
+These are the steps you must complete before you start working on the fix:
+
+1. Move to `main` branch and pull the latest changes.
+2. Create a new branch using the naming convention `fix/issue-<issue number>`.
+
+## After Implementing The Fix
+
+1. Write tests that match the style of similar tests.
+2. Ensure existing tests still pass.
+3. Run `php artisan test` before considering the work complete.
+4. Run `laravel-boost:laravel-code-simplifier`.
+5. Run `/finalize` command to ensure code style consistency
 
 ## Committing
 

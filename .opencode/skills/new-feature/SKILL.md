@@ -38,8 +38,8 @@ These are the steps you must complete after you finshed working on the feature:
 
 1. Write tests that match the style of similar tests.
 2. Ensure existing tests still pass.
-3. Run `php artisan test` before considering the work complete.
-4. Run `/laravel-boost:laravel-code-simplifier`.
+3. Run `/test` command before considering the work complete.
+4. Run `/laravel-boost:laravel-code-simplifier` command.
 5. Run `/finalize` command to ensure code style consistency.
 
 ## Committing
@@ -56,10 +56,13 @@ Push and create the PR using the `gh` CLI:
 
 ```bash
 gh pr create --title "Feature: <feature title>" --body "$(cat << 'EOF'
+
 ## Summary
+
 Brief summary of what was implemented.
 
 ## Changes
+
 - List key changes made
 
 EOF
