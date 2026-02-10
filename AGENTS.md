@@ -61,7 +61,7 @@ This project has domain-specific skills available. You MUST activate the relevan
 - `tailwindcss-development` — Styles applications using Tailwind CSS v4 utilities. Activates when adding styles, restyling components, working with gradients, spacing, layout, flex, grid, responsive design, dark mode, colors, typography, or borders; or when the user mentions CSS, styling, classes, Tailwind, restyle, hero section, cards, buttons, or any visual/UI changes.
 - `fix-issue` — Review a Github issue, solve issue, and submit a PR fix. Reach for this skill when you need to work on a GitHub issue.
 - `new-feature` — Develop new features for the application. Reach for this skill when you need to develop a new feature.
-- `review-code` — Review code for issues and improvements
+- `code-review` — Review code for issues and improvements
 
 ## Conventions
 

@@ -1,5 +1,5 @@
 ---
-name: review-code
+name: code-review
 description: Review code for issues and improvements
 ---
 
