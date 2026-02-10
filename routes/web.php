@@ -14,4 +14,6 @@ Route::get('dashboard', function () {
     return Inertia::render('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories.index');
+
 require __DIR__.'/settings.php';
