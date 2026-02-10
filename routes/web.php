@@ -19,7 +19,7 @@ Route::get('/categories/{category:slug}', [App\Http\Controllers\CategoryControll
 
 Route::get('/categories/{category:slug}', [App\Http\Controllers\CategoryController::class, 'show'])->name('categories.show');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function (): void {
     Route::get('/discussions/create', [App\Http\Controllers\DiscussionController::class, 'create'])->name('discussions.create');
     Route::post('/discussions', [App\Http\Controllers\DiscussionController::class, 'store'])->name('discussions.store');
 });
