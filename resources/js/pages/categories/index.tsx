@@ -1,6 +1,5 @@
 import React from 'react';
-import { Head } from '@inertiajs/react';
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import CategoryController from '@/actions/App/Http/Controllers/CategoryController';
 import type { BreadcrumbItem } from '@/types';
@@ -55,8 +54,13 @@ export default function Index({ categories }: CategoriesPageProps) {
 
                         <div className={gridClasses}>
                             {categories.map((category) => (
-                                <div
+                                <Link
                                     key={category.id}
+                                    href={
+                                        CategoryController.show({
+                                            category: category.slug,
+                                        }).url
+                                    }
                                     className="group block rounded-lg border border-gray-200 p-6 transition-colors duration-200 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-700"
                                 >
                                     <div className="mb-4 flex items-center justify-between">
@@ -76,7 +80,7 @@ export default function Index({ categories }: CategoriesPageProps) {
                                             {category.description}
                                         </p>
                                     )}
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     </div>
