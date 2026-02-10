@@ -1,5 +1,5 @@
 ---
-name: Fix Issue
+name: fix-issue
 description: Review a Github issue, solve issue, and submit a PR fix. Reach for this skill when you need to work on a GitHub issue.
 ---
 

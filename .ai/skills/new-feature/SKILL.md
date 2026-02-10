@@ -1,5 +1,5 @@
 ---
-name: New Feature
+name: new-feature
 description: Develop new features for the application. Reach for this skill when you need to develop a new feature.
 ---
 

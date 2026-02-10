@@ -19,7 +19,7 @@ class DiscussionFactory extends Factory
         return [
             'title' => $title,
             'slug' => Str::slug($title),
-            'content' => implode("\n", fake()->paragraphs(3)),
+            'content' => fake()->paragraphs(3, true),
             'category_id' => Category::factory(),
             'user_id' => User::factory(),
             'is_pinned' => fake()->boolean(10), // 10% chance of being pinned

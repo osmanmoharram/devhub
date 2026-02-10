@@ -13,7 +13,7 @@
         "pest-testing",
         "inertia-react-development",
         "tailwindcss-development",
-        "Fix Issue",
-        "New Feature"
+        "fix-issue",
+        "new-feature"
     ]
 }
