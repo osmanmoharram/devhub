@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\Carbon $updated_at
  * @property-read Category $category
  * @property-read User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Reply> $replies
  */
 class Discussion extends Model
 {
@@ -57,6 +59,14 @@ class Discussion extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return HasMany<Reply, $this>
+     */
+    public function replies(): HasMany
+    {
+        return $this->hasMany(Reply::class);
     }
 
     /**
