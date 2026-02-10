@@ -22,4 +22,23 @@ class CategoryController extends Controller
             'categories' => $activeCategories,
         ]);
     }
+
+    /**
+     * Display a specific category with its discussions.
+     */
+    public function show(Category $category): \Inertia\Response
+    {
+        $discussions = $category->discussions()
+            ->with('user:id,name')
+            ->withCount('replies')
+            ->orderBy('is_pinned', 'desc')
+            ->orderBy('last_reply_at', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return Inertia::render('categories/show', [
+            'category' => $category,
+            'discussions' => $discussions,
+        ]);
+    }
 }
